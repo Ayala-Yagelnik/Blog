@@ -10,12 +10,16 @@ namespace BlogProject.Controllers
     [ApiController]
     public class CommentController : ControllerBase
     {
-        CommentService data = new CommentService();
+        readonly CommentService _data;
+        public CommentController(CommentService commentService)
+        {
+            _data = commentService;
+        }
         // GET: api/<CommentController>
         [HttpGet]
         public ActionResult<List<Comment>> Get()
         {
-            var comments = data.Get();
+            var comments = _data.Get();
             return comments == null ? NotFound() : comments;
         }
 
@@ -23,7 +27,7 @@ namespace BlogProject.Controllers
         [HttpGet("{id}")]
         public ActionResult<Comment> Get(int id)
         {
-            var comment = data.GetById(id);
+            var comment = _data.GetById(id);
             return comment == null ? NotFound() : comment;
         }
 
@@ -31,7 +35,7 @@ namespace BlogProject.Controllers
         [HttpPost]
         public ActionResult<bool> Post([FromBody] Comment comment)
         {
-            bool success = data.AddComment(comment);
+            bool success = _data.AddComment(comment);
             return success ? true : NotFound();
         }
 
@@ -39,7 +43,7 @@ namespace BlogProject.Controllers
         [HttpPut("{id}")]
         public ActionResult<bool> Put(int id, [FromBody] Comment comment)
         {
-            bool success = data.Update(id, comment);
+            bool success = _data.Update(id, comment);
             return success ? true : NotFound();
         }
 
@@ -48,7 +52,7 @@ namespace BlogProject.Controllers
         public ActionResult<bool> Delete(int id)
         {
 
-            bool success = data.Delete(id);
+            bool success = _data.Delete(id);
             return success ? true : NotFound();
         }
     }

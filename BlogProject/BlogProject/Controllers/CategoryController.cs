@@ -10,12 +10,17 @@ namespace BlogProject.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        CategoryService data=new CategoryService();
+        readonly CategoryService _data;
+        public CategoryController(CategoryService categoryService)
+        {
+            _data = categoryService;
+        }
+
         // GET: api/<CategoryContoller>
         [HttpGet]
         public ActionResult<List<Category>> Get()
         {
-           var categories= data.Get();
+           var categories= _data.Get();
             if (categories==null)
             {
                 return NotFound();
@@ -27,7 +32,7 @@ namespace BlogProject.Controllers
         [HttpGet("{id}")]
         public ActionResult<Category> Get(int id)
         {
-           var category = data.GetById(id);
+           var category = _data.GetById(id);
             return category==null? NotFound() : category;
         }
 
@@ -35,7 +40,7 @@ namespace BlogProject.Controllers
         [HttpPost]
         public ActionResult<bool> Post([FromBody] Category category)
         {
-            bool success=data.AddCategory(category);
+            bool success=_data.AddCategory(category);
          return   success ?true: NotFound();
         }
 
@@ -43,7 +48,7 @@ namespace BlogProject.Controllers
         [HttpPut("{id}")]
         public ActionResult<bool> Put(int id, [FromBody] Category category)
         {
-            bool success = data.Update(id, category);
+            bool success = _data.Update(id, category);
            
                 return success? true: NotFound();
         }
@@ -52,7 +57,7 @@ namespace BlogProject.Controllers
         [HttpDelete("{id}")]
         public ActionResult<bool> Delete(int id)
         {
-            bool success = data.Delete(id);
+            bool success = _data.Delete(id);
                 return success? true:NotFound();
         }
     }

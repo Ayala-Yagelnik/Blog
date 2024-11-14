@@ -1,5 +1,6 @@
 ﻿using BlogProject.Controllers;
 using BlogProject.Entities;
+using BlogProject.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace UnitTest
         [Fact]
         public void GetAll_ReturnListOfCategories()
         {
-            var controller = new CategoryController();
+            var controller = new CategoryController(new CategoryService(new FakeContext()));
             var result = controller.Get();
             Assert.IsType<ActionResult<List<Category>>>(result);
 
@@ -23,7 +24,7 @@ namespace UnitTest
         public void GetById_ReturnCategory()
         {
             int id = 1;
-            var controller = new CategoryController();
+            var controller = new CategoryController(new CategoryService(new FakeContext()));
             var result = controller.Get(id);
             Assert.IsType<ActionResult<Category>>(result);
 
@@ -33,7 +34,7 @@ namespace UnitTest
         {
 
             Category obj = new Category {Id= 2, Name="Computer programming",ParentID= 1,Description= "all about how to bnkjk...." };
-            var controller = new CategoryController();
+            var controller = new CategoryController(new CategoryService(new FakeContext()));
             bool result = controller.Post(obj).Value;
             Assert.True(result);
         }
@@ -43,7 +44,7 @@ namespace UnitTest
         {
             var id = 5;
             Category obj = new Category { Id = 2, Name = "Computer programming", ParentID = 1, Description = "all about how to bnkjk...." };
-            var controller = new CategoryController();
+            var controller = new CategoryController(new CategoryService(new FakeContext()));
             bool result = controller.Put(id, obj).Value;
             Assert.False(result);
         }

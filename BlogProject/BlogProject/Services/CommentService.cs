@@ -6,19 +6,24 @@ namespace BlogProject.Services
 {
     public class CommentService
     {
-        private readonly DataContext _context = new DataContext();
-        public List<Comment> Get() => _context.Comments;
+        readonly IDataContext _context;
+        public CommentService(IDataContext dataContext)
+        {
+            _context = dataContext;
+            _context.LoadCategoryData();
+        }
+        public List<Comment> Get() => _context.CommentData;
 
-        public Comment GetById(int id) => _context.Comments.FirstOrDefault(x => x.Id == id);
+        public Comment GetById(int id) => _context.CommentData.FirstOrDefault(x => x.Id == id);
 
         public bool AddComment(Comment comment)
         {
-            _context.Comments.Add(comment);
+            _context.CommentData.Add(comment);
             return true;
         }
         public bool Update(int id, Comment comment)
         {
-            Comment existingCommentToUpdate = _context.Comments.FirstOrDefault(x => x.Id == id);
+            Comment existingCommentToUpdate = _context.CommentData.FirstOrDefault(x => x.Id == id);
             if (existingCommentToUpdate != null)
             {
                 existingCommentToUpdate.PostId = comment.PostId;
@@ -31,7 +36,7 @@ namespace BlogProject.Services
         }
         public bool Delete(int id)
         {
-            return  _context.Comments.Remove(_context.Comments.FirstOrDefault(x => x.Id == id));
+            return  _context.CommentData.Remove(_context.CommentData.FirstOrDefault(x => x.Id == id));
         }
     }
 }

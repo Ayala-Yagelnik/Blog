@@ -10,12 +10,16 @@ namespace BlogProject.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        UserService data = new UserService();
+        readonly UserService _data;
+        public UserController(UserService userService)
+        {
+            _data = userService;
+        }
         // GET: api/<UserController>
         [HttpGet]
         public ActionResult<List<User>> Get()
         {
-            var users = data.Get();
+            var users = _data.Get();
             return users == null ? NotFound() : users;
         }
 
@@ -23,7 +27,7 @@ namespace BlogProject.Controllers
         [HttpGet("{id}")]
         public ActionResult<User> Get(int id)
         {
-            var user = data.GetById(id);
+            var user = _data.GetById(id);
             return user == null ? NotFound() : user;
         }
 
@@ -31,7 +35,7 @@ namespace BlogProject.Controllers
         [HttpPost]
         public ActionResult<bool> Post([FromBody] User user)
         {
-            bool success = data.AddUser(user);
+            bool success = _data.AddUser(user);
             return success ? true : NotFound();
         }
 
@@ -39,7 +43,7 @@ namespace BlogProject.Controllers
         [HttpPut("{id}")]
         public ActionResult<bool> Put(int id, [FromBody] User user)
         {
-            bool success = data.Update(id, user);
+            bool success = _data.Update(id, user);
             return success ? true : NotFound();
         }
 
@@ -47,7 +51,7 @@ namespace BlogProject.Controllers
         [HttpDelete("{id}")]
         public ActionResult<bool> Delete(int id)
         {
-            bool success = data.Delete(id);
+            bool success = _data.Delete(id);
             return success ? true : NotFound();
         }
     }

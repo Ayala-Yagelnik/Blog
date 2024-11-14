@@ -7,19 +7,24 @@ namespace BlogProject.Services
     public class CategoryService
     {
 
-        private readonly DataContext _context = new DataContext();
-        public List<Category> Get() => _context.Categories;
+        readonly IDataContext _context ;
+        public CategoryService(IDataContext dataContext)
+        {
+            _context = dataContext;
+            _context.LoadCategoryData();
+        }
+        public List<Category> Get() => _context.CategoryData;
 
-        public Category GetById(int id) => _context.Categories.FirstOrDefault(x => x.Id == id);
+        public Category GetById(int id) => _context.CategoryData.FirstOrDefault(x => x.Id == id);
 
         public bool AddCategory(Category c)
         {
-            _context.Categories.Add(c);
+            _context.CategoryData.Add(c);
             return true;
         }
         public bool Update(int id, Category c)
         {
-            Category existingCategoryToUpdate = _context.Categories.FirstOrDefault(x => x.Id == id);
+            Category existingCategoryToUpdate = _context.CategoryData.FirstOrDefault(x => x.Id == id);
             if (existingCategoryToUpdate != null)
             {
                 existingCategoryToUpdate.Name = c.Name;
@@ -31,7 +36,7 @@ namespace BlogProject.Services
         }
         public bool Delete(int id)
         {
-            return _context.Categories.Remove(_context.Categories.FirstOrDefault(x => x.Id == id));
+            return _context.CategoryData.Remove(_context.CategoryData.FirstOrDefault(x => x.Id == id));
         }
     }
 }

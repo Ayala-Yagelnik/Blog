@@ -5,18 +5,22 @@ namespace BlogProject.Services
 {
     public class TagService
     {
-        private readonly DataContext _context = new DataContext();
-       
-        public List<Tag> Get() => _context.Tags;
-        public Tag GetById(int id) => _context.Tags.FirstOrDefault(x => x.Id == id);
+        readonly IDataContext _context;
+        public TagService(IDataContext dataContext)
+        {
+            _context = dataContext;
+            _context.LoadCategoryData();
+        }
+        public List<Tag> Get() => _context.TagData;
+        public Tag GetById(int id) => _context.TagData.FirstOrDefault(x => x.Id == id);
         public bool AddTag(Tag t)
         {
-            _context.Tags.Add(t);
+            _context.TagData.Add(t);
             return true;
         }
         public bool Update(int id, Tag t)
         {
-            Tag existingTagToUpdate = _context.Tags.FirstOrDefault(x => x.Id == id);
+            Tag existingTagToUpdate = _context.TagData.FirstOrDefault(x => x.Id == id);
             if (existingTagToUpdate != null)
             {
                 existingTagToUpdate.Name = t.Name;
@@ -29,7 +33,7 @@ namespace BlogProject.Services
         }
         public bool Delete(int id)
         {
-            return _context.Tags.Remove(_context.Tags.FirstOrDefault(x => x.Id == id));
+            return _context.TagData.Remove(_context.TagData.FirstOrDefault(x => x.Id == id));
         }
     }
 }

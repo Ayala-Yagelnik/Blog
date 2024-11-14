@@ -1,125 +1,438 @@
-﻿using BlogProject.Entities;
+﻿//using BlogProject.Entities;
+//using CsvHelper;
+//using CsvHelper.Configuration;
+//using Microsoft.Extensions.Logging;
+//using System.Formats.Asn1;
+//using System.Globalization;
+
+//namespace BlogProject.DTO
+//{
+//    public class DataContext : IDataContext
+//    {
+//        readonly DataPathes _path;
+
+//        public List<Category> CategoryData { get ; set ; }
+//        public List<Comment> CommentData { get; set; }
+//        public List<Post> PostData { get; set; }
+//        public List<Tag> TagData { get; set; }
+//        public List<User> UserData { get; set; }
+
+//        public DataContext(DataPathes path)
+//        {
+//           _path = path;
+//        }
+
+//        public List<Category> LoadCategoryData()
+//        {
+//            try
+//            {
+//                using (var reader = new StreamReader(_path.CategoryPath))
+//                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+//                {
+//                    CategoryData = csv.GetRecords<Category>().ToList();
+//                }
+//                return CategoryData;
+//            }
+//            catch
+//            {
+//                return null;
+//            }
+//        }
+
+//        public bool SaveCategoryData()
+//        {
+//            try
+//            {
+//                if (File.Exists(_path.CategoryPath))
+//                    File.Delete(_path.CategoryPath);
+//                using (var writer = new StreamWriter(_path.CategoryPath))
+//                using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+//                {
+//                    csv.WriteRecords(CategoryData);
+//                }
+//                return true;
+//            }
+//            catch
+//            {
+//                return false;
+//            }
+//        }
+
+//        public List<Comment> LoadCommentData()
+//        {
+//            try
+//            {
+//                using (var reader = new StreamReader(_path.CommentPath))
+//                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+//                {
+//                    CommentData = csv.GetRecords<Comment>().ToList();
+//                }
+//                return CommentData;
+//            }
+//            catch
+//            {
+//                return null;
+//            }
+//        }
+
+//        public bool SaveCommentData()
+//        {
+//            try
+//            {
+//                if (File.Exists(_path.CommentPath))
+//                    File.Delete(_path.CommentPath);
+//                using (var writer = new StreamWriter(_path.CommentPath))
+//                using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+//                {
+//                    csv.WriteRecords(CommentData);
+//                }
+//                return true;
+//            }
+//            catch
+//            {
+//                return false;
+//            }
+//        }
+
+//        public List<Post> LoadPostData()
+//        {
+//            try
+//            {
+//                using (var reader = new StreamReader(_path.PostPath))
+//                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+//                {
+//                    PostData = csv.GetRecords<Post>().ToList();
+//                }
+//                return PostData;
+//            }
+//            catch
+//            {
+//                return null;
+//            }
+//        }
+
+//        public bool SavePostData()
+//        {
+//            try
+//            {
+//                if (File.Exists(_path.PostPath))
+//                    File.Delete(_path.PostPath);
+//                using (var writer = new StreamWriter(_path.PostPath))
+//                using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+//                {
+//                    csv.WriteRecords(PostData);
+//                }
+//                return true;
+//            }
+//            catch
+//            {
+//                return false;
+//            }
+//        }
+
+//        public List<Tag> LoadTagData()
+//        {
+//            try
+//            {
+//                using (var reader = new StreamReader(_path.TagPath))
+//                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+//                {
+//                    TagData = csv.GetRecords<Tag>().ToList();
+//                }
+//                return TagData;
+//            }
+//            catch
+//            {
+//                return null;
+//            }
+//        }
+
+//        public bool SaveTagData()
+//        {
+//            try
+//            {
+//                if (File.Exists(_path.TagPath))
+//                    File.Delete(_path.TagPath);
+//                using (var writer = new StreamWriter(_path.TagPath))
+//                using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+//                {
+//                    csv.WriteRecords(TagData);
+//                }
+//                return true;
+//            }
+//            catch
+//            {
+//                return false;
+//            }
+//        }
+
+//        public List<User> LoadUserData()
+//        {
+//            try
+//            {
+//                using (var reader = new StreamReader(_path.UserPath))
+//                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+//                {
+//                    UserData = csv.GetRecords<User>().ToList();
+//                }
+//                return UserData;
+//            }
+//            catch
+//            {
+//                return null;
+//            }
+//        }
+
+//        public bool SaveUserData()
+//        {
+//            try
+//            {
+//                if (File.Exists(_path.UserPath))
+//                    File.Delete(_path.UserPath);
+//                using (var writer = new StreamWriter(_path.UserPath))
+//                using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+//                {
+//                    csv.WriteRecords(UserData);
+//                }
+//                return true;
+//            }
+//            catch
+//            {
+//                return false;
+//            }
+//        }
+
+
+
+//        public class DataPathes
+//        {
+//            public string CategoryPath { get; set; } = Path.Combine(AppContext.BaseDirectory, "Data", "category_data.csv");
+//            public string CommentPath { get; set; } = Path.Combine(AppContext.BaseDirectory, "Data", "comment_data.csv");
+//            public string PostPath { get; set; } = Path.Combine(AppContext.BaseDirectory, "Data", "post_data.csv");
+//            public string TagPath { get; set; } = Path.Combine(AppContext.BaseDirectory, "Data", "tag_data.csv");
+//            public string UserPath { get; set; } = Path.Combine(AppContext.BaseDirectory, "Data", "user_data.csv");
+//        }
+//    }
+//}
+
+using BlogProject.Entities;
+using CsvHelper;
+using CsvHelper.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 
 namespace BlogProject.DTO
 {
-    public class DataContext
+    public class DataContext : IDataContext
     {
-        public List<Category> Categories { get; set; }
-        public List<Comment> Comments { get; set; }
-        public List<Post> Posts { get; set; }
-        public List<Tag> Tags { get; set; }
-        public List<User> Users { get; set; }
+        private readonly DataPathes _path;
 
+        public List<Category> CategoryData { get; set; }
+        public List<Comment> CommentData { get; set; }
+        public List<Post> PostData { get; set; }
+        public List<Tag> TagData { get; set; }
+        public List<User> UserData { get; set; }
 
-        public DataContext()
+        public DataContext(DataPathes path)
         {
-            Categories = new List<Category>()
-            {
-                new Category
-                {
-                    Id = 1,
-                    Name = "Category 3",
-                    Description = "Description of Category 3",
-                    ParentID = 2
-                }
-            };
-            Comments = new List<Comment>(){
-            new Comment
-            {
-                Id =1,
-                Content ="hello to every one!!!",
-                AuthorId =1,
-                PostId =1,
-                CreatedAt =DateTime.Now
-            },
-            new Comment
-            {
-                Id =2,
-                Content ="hello to every body!!!",
-                AuthorId =1,
-                PostId =1,
-                CreatedAt =DateTime.Now
-            },
-            new Comment
-            {
-                Id =3,
-                Content ="hi every one!!!",
-                AuthorId =2,
-                PostId =1,
-                CreatedAt =DateTime.Now
-            }};
-            Posts = new List<Post>(){
-            new Post
-            {
-                Id = 3,
-                Title = "Third Post",
-                Content = "This is the content of the third post.",
-                AuthorId = 2,
-                CategoryId = 1,
-                CreatedAt = DateTime.Now,
-                Tags = new List<Tag> { new Tag { Id = 5, Name = "Tag5" }, new Tag { Id = 6, Name = "Tag6" } },
-                ViewsAmount = 200,
-                Image = new byte[] { 0x11, 0x22, 0x33 },
-                LastUpdatedAt = DateTime.Now,
-                LastViewedAt = DateTime.Now
-            } };
-            Tags = new List<Tag>(){
-            new Tag
-            {
-                Id=1,
-                Name="popular",
-                UsageAmount=2,
-                Description="manny people read this post",
-                CreatorId=1,
-                IsActive=true,
+            _path = path;
+            CategoryData = new List<Category>();
+            CommentData = new List<Comment>();
+            PostData = new List<Post>();
+            TagData = new List<Tag>();
+            UserData = new List<User>();
+        }
+ 
 
-            },
-            new Tag
+        public List<Category> LoadCategoryData()
+        {
+            try
             {
-                Id=2,
-                Name="supported",
-                UsageAmount=1,
-                Description="the creator give support to the readers",
-                CreatorId=1,
-                IsActive=true,
-            }};
-            Users = new List<User>(){
-            new User
+                using (var reader = new StreamReader(_path.CategoryPath))
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    CategoryData = csv.GetRecords<Category>().ToList();
+                }
+                return CategoryData;
+            }
+            catch
             {
-                Id=214834921,
-                Name="Ayala",
-                Icon=default,
-                Country="Israel",
-                Bio="a student of computer programming",
-                Email="a83245064@gmail.com",
-                Password="1234",
-                PhoneNumber="0583245064",
-                RegistrationDate=DateTime.Now
-            },
-            new User
+                return null;
+            }
+        }
+
+        public bool SaveCategoryData()
+        {
+            try
             {
-                Id = 1,
-                Name = "Alice",
-                Email = "alice@example.com",
-                Password = "password123",
-                PhoneNumber = "1234567890",
-                Country = "USA",
-                Icon = new byte[] { 0x12, 0x34, 0x56 },
-                Bio = "Hello, I'm Alice!",
-                RegistrationDate = DateTime.Now
-            },
-            new User
+                if (File.Exists(_path.CategoryPath))
+                    File.Delete(_path.CategoryPath);
+                using (var writer = new StreamWriter(_path.CategoryPath))
+                using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+                {
+                    csv.WriteRecords(CategoryData);
+                }
+                return true;
+            }
+            catch
             {
-                Id = 2,
-                Name = "Bob",
-                Email = "bob@example.com",
-                Password = "password456",
-                PhoneNumber = "9876543210",
-                Country = "Canada",
-                Icon = new byte[] { 0xAB, 0xCD, 0xEF },
-                Bio = "Hi, I'm Bob!",
-                RegistrationDate = DateTime.Now
-            }};
+                return false;
+            }
+        }
+
+        public List<Comment> LoadCommentData()
+        {
+            try
+            {
+                using (var reader = new StreamReader(_path.CommentPath))
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    CommentData = csv.GetRecords<Comment>().ToList();
+                }
+                return CommentData;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public bool SaveCommentData()
+        {
+            try
+            {
+                if (File.Exists(_path.CommentPath))
+                    File.Delete(_path.CommentPath);
+                using (var writer = new StreamWriter(_path.CommentPath))
+                using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+                {
+                    csv.WriteRecords(CommentData);
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public List<Post> LoadPostData()
+        {
+            try
+            {
+                using (var reader = new StreamReader(_path.PostPath))
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    PostData = csv.GetRecords<Post>().ToList();
+                }
+                return PostData;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public bool SavePostData()
+        {
+            try
+            {
+                if (File.Exists(_path.PostPath))
+                    File.Delete(_path.PostPath);
+                using (var writer = new StreamWriter(_path.PostPath))
+                using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+                {
+                    csv.WriteRecords(PostData);
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public List<Tag> LoadTagData()
+        {
+            try
+            {
+                using (var reader = new StreamReader(_path.TagPath))
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    TagData = csv.GetRecords<Tag>().ToList();
+                }
+                return TagData;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public bool SaveTagData()
+        {
+            try
+            {
+                if (File.Exists(_path.TagPath))
+                    File.Delete(_path.TagPath);
+                using (var writer = new StreamWriter(_path.TagPath))
+                using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+                {
+                    csv.WriteRecords(TagData);
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public List<User> LoadUserData()
+        {
+            try
+            {
+                using (var reader = new StreamReader(_path.UserPath))
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    UserData = csv.GetRecords<User>().ToList();
+                }
+                return UserData;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public bool SaveUserData()
+        {
+            try
+            {
+                if (File.Exists(_path.UserPath))
+                    File.Delete(_path.UserPath);
+                using (var writer = new StreamWriter(_path.UserPath))
+                using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+                {
+                    csv.WriteRecords(UserData);
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public class DataPathes
+        {
+            public string CategoryPath { get; set; } = Path.Combine(AppContext.BaseDirectory, "Data", "category_data.csv");
+            public string CommentPath { get; set; } = Path.Combine(AppContext.BaseDirectory, "Data", "comment_data.csv");
+            public string PostPath { get; set; } = Path.Combine(AppContext.BaseDirectory, "Data", "post_data.csv");
+            public string TagPath { get; set; } = Path.Combine(AppContext.BaseDirectory, "Data", "tag_data.csv");
+            public string UserPath { get; set; } = Path.Combine(AppContext.BaseDirectory, "Data", "user_data.csv");
         }
     }
 }

@@ -5,21 +5,25 @@ namespace BlogProject.Services
 {
     public class PostService
     {
-        private readonly DataContext _context = new DataContext();
-        
-   
-        public List<Post> Get() => _context.Posts;
 
-        public Post GetById(int id) => _context.Posts.FirstOrDefault(x => x.Id == id);
+        readonly IDataContext _context;
+        public PostService(IDataContext dataContext)
+        {
+            _context = dataContext;
+            _context.LoadCategoryData();
+        }
+        public List<Post> Get() => _context.PostData;
+
+        public Post GetById(int id) => _context.PostData.FirstOrDefault(x => x.Id == id);
 
         public bool AddPost(Post p)
         {
-            _context.Posts.Add(p);
+            _context.PostData.Add(p);
             return true;
         }
         public bool Update(int id, Post p)
         {
-            Post existingPostToUpdate = _context.Posts.FirstOrDefault(x => x.Id == id);
+            Post existingPostToUpdate = _context.PostData.FirstOrDefault(x => x.Id == id);
             if (existingPostToUpdate != null)
             {
                 existingPostToUpdate.Title = p.Title;
@@ -38,7 +42,7 @@ namespace BlogProject.Services
         }
         public bool Delete(int id)
         {
-            return _context.Posts.Remove(_context.Posts.FirstOrDefault(x => x.Id == id));
+            return _context.PostData.Remove(_context.PostData.FirstOrDefault(x => x.Id == id));
         }
     }
 }

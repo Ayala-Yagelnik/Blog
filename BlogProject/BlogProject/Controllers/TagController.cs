@@ -10,12 +10,16 @@ namespace BlogProject.Controllers
     [ApiController]
     public class TagController : ControllerBase
     {
-        TagService data = new TagService();
+        readonly TagService _data;
+        public TagController(TagService tagService)
+        {
+            _data = tagService;
+        }
         // GET: api/<TagController>
         [HttpGet]
         public ActionResult<List<Tag>> Get()
         {
-            var tags = data.Get();
+            var tags = _data.Get();
             return tags == null ? NotFound() : tags;
         }
 
@@ -23,7 +27,7 @@ namespace BlogProject.Controllers
         [HttpGet("{id}")]
         public ActionResult<Tag> Get(int id)
         {
-            var tag = data.GetById(id);
+            var tag = _data.GetById(id);
             return tag == null ? NotFound() : tag;
         }
 
@@ -31,7 +35,7 @@ namespace BlogProject.Controllers
         [HttpPost]
         public ActionResult<bool> Post([FromBody] Tag tag)
         {
-            bool success = data.AddTag(tag);
+            bool success = _data.AddTag(tag);
             return success ? true : NotFound();
         }
 
@@ -39,7 +43,7 @@ namespace BlogProject.Controllers
         [HttpPut("{id}")]
         public ActionResult<bool> Put(int id, [FromBody] Tag tag)
         {
-            bool success = data.Update(id, tag);
+            bool success = _data.Update(id, tag);
             return success ? true : NotFound();
         }
 
@@ -47,7 +51,7 @@ namespace BlogProject.Controllers
         [HttpDelete("{id}")]
         public ActionResult<bool> Delete(int id)
         {
-            bool success = data.Delete(id);
+            bool success = _data.Delete(id);
 
             return success ? true : NotFound();
         }
