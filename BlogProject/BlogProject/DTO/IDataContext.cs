@@ -9,15 +9,15 @@ namespace BlogProject.DTO
         public List<Post> PostData { get; set; }
         public List<Tag> TagData { get; set; }
         public List<User> UserData { get; set; }
-        public List<Category> LoadCategoryData();
+        public bool LoadCategoryData();
         public bool SaveCategoryData();
-        public List<Comment> LoadCommentData();
+        public bool LoadCommentData();
         public bool SaveCommentData();
-        public List<Post> LoadPostData();
+        public bool LoadPostData();
         public bool SavePostData();
-        public List<Tag> LoadTagData();
+        public bool LoadTagData();
         public bool SaveTagData();
-        public List<User> LoadUserData();
+        public bool LoadUserData();
         public bool SaveUserData();
     }
 }

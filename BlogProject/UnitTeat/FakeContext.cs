@@ -20,7 +20,7 @@ namespace UnitTest
         public List<User> UserData { get; set; }
 
 
-        public List<Category> LoadCategoryData()
+        public bool LoadCategoryData()
         {
 
             try
@@ -32,11 +32,11 @@ namespace UnitTest
                     Description = "Description of Category 3",
                     ParentID = 2
                 } };
-                return CategoryData;
+                return true;
             }
             catch
             {
-                return null;
+                return false;
             }
         }
 
@@ -45,7 +45,7 @@ namespace UnitTest
             return true;
         }
 
-        public List<Comment> LoadCommentData()
+        public bool LoadCommentData()
         {
             try
             {
@@ -74,11 +74,11 @@ namespace UnitTest
                 PostId =1,
                 CreatedAt =DateTime.Now
             }};
-                return CommentData;
+                return true;
             }
             catch
             {
-                return null;
+                return false;
             }
         }
 
@@ -87,7 +87,7 @@ namespace UnitTest
             return true;
         }
 
-        public List<Post> LoadPostData()
+        public bool LoadPostData()
         {
             try
             {
@@ -106,11 +106,11 @@ namespace UnitTest
                     LastUpdatedAt = DateTime.Now,
                     LastViewedAt = DateTime.Now
                 } };
-                return PostData;
+                return true;
             }
             catch
             {
-                return null;
+                return false;
             }
         }
 
@@ -119,7 +119,7 @@ namespace UnitTest
             return true;
         }
 
-        public List<Tag> LoadTagData()
+        public bool LoadTagData()
         {
             try
             {
@@ -143,11 +143,11 @@ namespace UnitTest
                     CreatorId=1,
                     IsActive=true,
                 }};
-                return TagData;
+                return true;
             }
             catch
             {
-                return null;
+                return false;
             }
         }
 
@@ -156,7 +156,7 @@ namespace UnitTest
             return true;
         }
 
-        public List<User> LoadUserData()
+        public bool LoadUserData()
         {
             try
             {
@@ -198,11 +198,11 @@ namespace UnitTest
                     Bio = "Hi, I'm Bob!",
                     RegistrationDate = DateTime.Now
                 }};
-                return UserData;
+                return true;
             }
             catch 
             {
-                return null;
+                return false;
             }
         }
 
