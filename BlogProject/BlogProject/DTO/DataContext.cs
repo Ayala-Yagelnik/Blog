@@ -31,6 +31,11 @@ namespace BlogProject.DTO
                 File.Create(_path.TagPath).Close();
             if (!File.Exists(_path.UserPath))
                 File.Create(_path.UserPath).Close();
+            LoadCategoryData();
+            LoadCommentData();
+            LoadPostData();
+            LoadTagData();
+            LoadUserData();
         }
 
 
